@@ -2,7 +2,12 @@
 # Script to mesure the CPU, memory and disk usage of a remote server
 
 # Location to save the report
-REPORT_FILE="/tmp/system_performance_report.txt"
+LOG_DIR="/var/log/system_monitor"
+mkdir -p $LOG_DIR
+
+# Save report with timestamp
+TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
+REPORT_FILE="$LOG_DIR/system_report_$TIMESTAMP.log"
 
 print_header() {
     echo "=============================="
@@ -41,4 +46,4 @@ disk_usage () {
     cpu_usage
     memory_usage
     disk_usage
-} | tee "$REPORT_FILE"
+} >> "$REPORT_FILE"
